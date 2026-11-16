@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Servidores Cloud | Diego Hernández</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menú Dinámico -->
+    <header>
+        <nav class="navbar">
+            <a href="#inicio" class="logo">Cloud<span>Admin</span></a>
+            
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li>
+                    <a href="#informacion">Información Básica &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#informacion">Active Directory</a></li>
+                        <li><a href="#informacion">Servidor Web IIS</a></li>
+                        <li><a href="#informacion">Despliegue con Git</a></li>
+                    </ul>
+                </li>
+                <li><a href="#problemas">Problemas y Soluciones</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección Hero -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <span class="badge">Ingeniería en Desarrollo de Software • UNIVO</span>
+            <h1>Administración de Servidores Windows y Despliegue Web</h1>
+            <p>Guía técnica estructurada sobre servicios de directorio, publicación en Internet Information Services (IIS) y control de versiones en entornos remotos.</p>
+            <a href="#informacion" class="btn-primary">Explorar Documentación</a>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main>
+        <!-- Información Básica -->
+        <section id="informacion">
+            <h2 class="section-title">Información Básica</h2>
+            <p class="section-subtitle">Conceptos fundamentales de la arquitectura implementada en Windows Server.</p>
+            
+            <div class="info-grid">
+                <article class="card">
+                    <h3>Active Directory (AD DS)</h3>
+                    <p>Servicio de directorio que centraliza la gestión de identidades, Unidades Organizativas (UO) y permisos de acceso remoto mediante protocolos seguros de autenticación en red.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Internet Information Services (IIS)</h3>
+                    <p>Servidor web nativo de Windows Server encargado de alojar y servir aplicaciones y sitios estáticos o dinámicos desde el directorio raíz <code>C:\inetpub\wwwroot\</code>.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Escritorio Remoto (RDP) y Git</h3>
+                    <p>El protocolo RDP (puerto <code>3389</code>) habilita la administración gráfica remota, mientras que Git permite clonar repositorios directamente en la ruta de producción del servidor.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Problemas y Soluciones -->
+        <section id="problemas">
+            <h2 class="section-title">Problemas y Soluciones</h2>
+            <p class="section-subtitle">Haz clic sobre cada incidencia frecuente para desplegar su diagnóstico y solución técnica.</p>
+
+            <div class="qa-container">
+                <details class="qa-item" open>
+                    <summary>1. Error 404 (Not Found) al abrir el sitio en localhost</summary>
+                    <div class="qa-body">
+                        <div class="problem-box">
+                            <strong>Problema:</strong>
+                            Al clonar el repositorio con <code>git clone URL</code> sin especificar destino, Git crea una subcarpeta adicional con el nombre del repositorio, dejando el <code>index.html</code> fuera de la ruta esperada por IIS.
+                        </div>
+                        <div class="solution-box">
+                            <strong>Solución:</strong>
+                            Navegar hasta la carpeta personal con <code>cd</code> y ejecutar <code>git clone URL_REPOSITORIO .</code> (incluyendo el punto final) para descargar los archivos directamente en el directorio actual.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>2. Fallo de autenticación al conectar por Escritorio Remoto (RDP)</summary>
+                    <div class="qa-body">
+                        <div class="problem-box">
+                            <strong>Problema:</strong>
+                            El cliente RDP intenta iniciar sesión usando el dominio local de la computadora física en lugar del dominio configurado en el servidor Active Directory.
+                        </div>
+                        <div class="solution-box">
+                            <strong>Solución:</strong>
+                            Seleccionar "Más opciones" &gt; "Usar otra cuenta" e ingresar las credenciales anteponiendo el nombre del dominio o utilizando el formato <code>usuario@dominio.local</code> asignado por el líder.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>3. Denegación de permisos en la carpeta del servidor web</summary>
+                    <div class="qa-body">
+                        <div class="problem-box">
+                            <strong>Problema:</strong>
+                            El usuario intenta crear carpetas o clonar archivos fuera de la Unidad Organizativa o directorio asignado a su grupo de trabajo.
+                        </div>
+                        <div class="solution-box">
+                            <strong>Solución:</strong>
+                            Verificar mediante <code>cd</code> que la ruta de trabajo corresponda exactamente a la carpeta delegada al grupo en <code>C:\inetpub\wwwroot\</code>, respetando las políticas de seguridad.
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer con información de contacto -->
+    <footer id="contacto">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Sobre el Proyecto</h4>
+                <p>Práctica académica de Administración de Sistemas Operativos enfocada en despliegue de infraestructura web en Windows Server.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navegación Rápida</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#informacion">Información Básica</a></li>
+                    <li><a href="#problemas">Problemas y Soluciones</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Información de Contacto</h4>
+                <ul>
+                    <li><strong>Desarrollador:</strong> Diego Alessandro Hernández Lazo</li>
+                    <li><strong>Carrera:</strong> Ingeniería en Desarrollo de Software</li>
+                    <li><strong>Institución:</strong> Universidad de Oriente (UNIVO)</li>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/AlessandroLazoo" target="_blank">github.com/AlessandroLazoo</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Diego Hernández — Todos los derechos reservados. Estructurado 100% con HTML5 y CSS3 puro.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
